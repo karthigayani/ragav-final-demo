@@ -1,5 +1,7 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { useEffect } from 'react';
 
 function App() {
   return (
@@ -35,11 +37,30 @@ function PhoneList(){
   //     company: "Xiomi"
   //   }
   // ];
-  const mobiles = [];
+  
+  // const mobiles = []; 
+  const [mobiles, setMobiles] = useState([]); // Applying useState hook.
+
+
+  // fetch("http://localhost:4000/mobiles")
+  // .then((data) => data.json())
+  // .then((mbs) => console.log(mbs));
+
+  useEffect(() => {
+    fetch("http://localhost:4000/mobiles")
+    .then((data) => data.json())
+    // .then((mbs) => console.log(mbs));
+    .then((mbs) => setMobiles(mbs)); // Applying useState hook.
+  }, []); // Applying useEffect hook.
+
   return (
     <div className="phone-list-container">
-      {mobiles.map((mb) => (
+      {/* {mobiles.map((mb) => (
         < Phone mobile={mb}/> 
+        // props
+      ))} */}
+      {mobiles.map((mb, index) => (
+        < Phone key={index} mobile={mb}/> 
         // props
       ))}
     </div>
